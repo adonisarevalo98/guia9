@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { db } from "../Firebase";
 //import { toast } from "react-toastify";
 
-const AlumnosForm = (props) => {
+const EmpleadosForm = (props) => {
 
   const initialStateValues = {
     nombre: "",
     apellido: "",
-    edad: "",
+    cargo: "",
   };
 
   const [values, setValues] = useState(initialStateValues);
@@ -20,12 +20,12 @@ const AlumnosForm = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    props.addOrEditAlumno(values);
+    props.addOrEditEmpleado(values);
     setValues({ ...initialStateValues });
   };
 
-  const getAlumnoById = async (id) => {
-    const doc = await db.collection("Alumnos").doc(id).get();
+  const getEmpleadoById = async (id) => {
+    const doc = await db.collection("Empleados").doc(id).get();
     setValues({ ...doc.data() });
   };
 
@@ -35,7 +35,7 @@ const AlumnosForm = (props) => {
     } else {
       //https://stackoverflow.com/questions/56059127/how-to-fix-this-error-function-collectionreference-doc
       if (props.currentId !== null && props.currentId !== undefined) {
-        getAlumnoById(props.currentId);
+        getEmpleadoById(props.currentId);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -75,9 +75,9 @@ const AlumnosForm = (props) => {
         </div>
         <input
           type="text"
-          value={values.edad}
-          name="edad"
-          placeholder="Ingrese edad"
+          value={values.cargo}
+          name="cargo"
+          placeholder="Ingrese cargo"
           className="form-control"
           onChange={handleInputChange}
         />
@@ -89,4 +89,4 @@ const AlumnosForm = (props) => {
   );
 };
 
-export default AlumnosForm;
+export default EmpleadosForm;
